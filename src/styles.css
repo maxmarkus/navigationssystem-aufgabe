@@ -1,0 +1,11 @@
+/**
+ * Overrides the global material design 
+ */
+
+.button-wrapper .mat-stroked-button.mat-button-disabled {
+  cursor: not-allowed;
+}
+
+.mat-tab-nav-bar .active {
+  background-color: #191970;
+}

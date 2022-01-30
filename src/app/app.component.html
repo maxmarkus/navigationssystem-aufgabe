@@ -3,8 +3,10 @@
     <h1>Navigationssystem</h1>
 
     <nav mat-tab-nav-bar backgroundColor="primary">
-      <ng-container *ngFor="let link of links">
-        <a mat-tab-link [routerLink]="[link.route]">{{ link.title}}</a>
+      <ng-container *ngFor="let link of links; let index = index">
+        <a mat-tab-link [routerLink]="[link.route]" (click)="select(index)" routerLinkActive="active">
+          {{ link.title}}
+        </a>
       </ng-container>
     </nav>
   </div>
@@ -14,7 +16,12 @@
   </div>
 
   <div class="button-wrapper">
-    <button>Zurück</button>
-    <button>Vor</button>
+    <button mat-stroked-button (click)="goBack()" [disabled]="!selectedLinkIndex" class="nav-button">
+      Zurück
+    </button>
+    <button mat-stroked-button (click)="goForward()"
+      [disabled]="!links.length || selectedLinkIndex === links.length - 1" class="nav-button">
+      Vor
+    </button>
   </div>
 </div>

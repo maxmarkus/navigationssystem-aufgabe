@@ -5,8 +5,15 @@
   margin: auto;
 }
 
+.button-wrapper {
+  text-align: end;
+}
+
+.nav-button:not(:last-of-type) {
+  margin-right: 8px;
+}
+
 .content-wrapper {
   width: 100%;
   height: 400px;
 }
-
