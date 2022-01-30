@@ -13,6 +13,10 @@
   margin-right: 8px;
 }
 
+.link {
+  flex: 1;
+}
+
 .content-wrapper {
   width: 100%;
   height: 400px;

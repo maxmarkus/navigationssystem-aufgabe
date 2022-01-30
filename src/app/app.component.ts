@@ -10,8 +10,15 @@ import { NavigationService } from './navigation.service';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit, OnDestroy {
+  /**
+   * List of all valid links
+   */
   links: Link[];
 
+  /**
+   * For easier handling of the navigation via the button the index of
+   * the currently selected index is used
+   */
   selectedLinkIndex: number;
 
   private subscription: Subscription;
@@ -25,7 +32,6 @@ export class AppComponent implements OnInit, OnDestroy {
       if (links.length && this.selectedLinkIndex === undefined) {
         this.selectedLinkIndex = 0;
       }
-
       this.links = links;
     });
   }

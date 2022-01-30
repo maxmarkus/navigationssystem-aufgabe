@@ -4,7 +4,7 @@
 
     <nav mat-tab-nav-bar backgroundColor="primary">
       <ng-container *ngFor="let link of links; let index = index">
-        <a mat-tab-link [routerLink]="[link.route]" (click)="select(index)" routerLinkActive="active">
+        <a mat-tab-link class="link" [routerLink]="[link.route]" (click)="select(index)" routerLinkActive="active">
           {{ link.title}}
         </a>
       </ng-container>

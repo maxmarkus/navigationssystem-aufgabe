@@ -1,4 +1,6 @@
+import { CdkVirtualForOf } from '@angular/cdk/scrolling';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -12,7 +14,7 @@ export class NavigationService {
 
   private dynamicNavigationItems$: BehaviorSubject<Link[]> = new BehaviorSubject<Link[]>(null);
 
-  constructor() {
+  constructor(private router: Router) {
     this.staticNavigationItems$.next([
       { title: 'M', route: 'm' },
       { title: 'A', route: 'a' },
@@ -23,6 +25,13 @@ export class NavigationService {
     this.mockFetchNavigationItems();
   }
 
+  /**
+   * Combines the static and dynamic links of this application and validates them
+   *
+   * A link is only valid, if it has a title, a route and is defined in the Angular Router configuration
+   *
+   * @returns an Observable which returns a list of valid links
+   */
   public getNavigationItems(): Observable<Link[]> {
     return combineLatest([this.staticNavigationItems$, this.dynamicNavigationItems$]).pipe(
       map(([statik, dynamic]) => {
@@ -31,7 +40,9 @@ export class NavigationService {
         dynamic = dynamic ?? [];
 
         const combinedLinks = statik.concat(dynamic);
-        const validLinks = combinedLinks.filter((l) => l?.title && l?.route);
+        const validLinks = combinedLinks.filter(
+          (link) => link?.title && link?.route && this.router.config.some((c) => c.path === link.route)
+        );
         return validLinks.sort((a, b) => a.title.localeCompare(b.title));
       })
     );
@@ -39,9 +50,13 @@ export class NavigationService {
 
   private mockFetchNavigationItems(): void {
     // as if it would come from an http request
-    setTimeout(() => this.dynamicNavigationItems$.next([
-      { title: 'C', route: 'c' },
-      { title: 'Z', route: 'z' },
-    ]), 500);
+    setTimeout(
+      () =>
+        this.dynamicNavigationItems$.next([
+          { title: 'C', route: 'c' },
+          { title: 'Z', route: 'z' },
+        ]),
+      500
+    );
   }
 }

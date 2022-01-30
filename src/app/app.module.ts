@@ -9,9 +9,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app.routing.module';
 import { MaterialModule } from './material/material.module';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 @NgModule({
-  declarations: [AppComponent, AComponent, BComponent, CComponent, DComponent],
+  declarations: [AppComponent, AComponent, BComponent, CComponent, DComponent, NotFoundComponent],
   imports: [BrowserModule, BrowserAnimationsModule, RouterModule, AppRoutingModule, MaterialModule],
   providers: [],
   bootstrap: [AppComponent],
